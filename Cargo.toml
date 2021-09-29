@@ -1,0 +1,27 @@
+[package]
+name = "git-clear"
+version = "0.0.1"
+authors = ["thek"]
+documentation = "https://gitee.com/the-k/git-clear/blob/master/README.md"
+edition = "2018"
+repository = "https://gitee.com/the-k/git-clear"
+description = "tool to clear git related data"
+
+[dependencies]
+git2 = "0.13.21"
+clap = "2.33.3"
+anyhow = "1.0.43"
+cmd_lib = "1.1.0"
+
+[[bin]]
+bench = false
+path = "src/main.rs"
+name = "git-clear"
+
+[profile.dev]
+opt-level = 1
+debug = false
+panic = 'unwind'
+
+[profile.release]
+opt-level="s"
