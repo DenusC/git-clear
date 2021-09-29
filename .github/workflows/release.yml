@@ -27,5 +27,3 @@ jobs:
           RUSTTARGET: ${{ matrix.target }}
           ARCHIVE_TYPES: ${{ matrix.archive }}
           EXTRA_FILES: README.md CHANGELOG.md
-      - name: look
-        run: tree
