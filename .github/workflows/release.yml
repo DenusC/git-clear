@@ -45,6 +45,24 @@ jobs:
           archive: zip
     steps:
       - uses: actions/checkout@master
+      - name: Install packages (Ubuntu)
+      if: matrix.os == 'ubuntu-18.04'
+      run: |
+        ci/ubuntu-install-packages
+
+      - name: Install packages (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          ci/macos-install-packages
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          profile: minimal
+          override: true
+          target: ${{ matrix.target }}
+          
       - name: Compile and release
         uses: rust-build/rust-build.action@latest
         env:
