@@ -7,17 +7,42 @@ on:
 jobs:
   release:
     name: release ${{ matrix.target }}
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest,]
     strategy:
-      fail-fast: false
       matrix:
+        fail-fast: false
+        build: [linux, linux-arm, macos, win-msvc, win-gnu, win32-msvc]
         include:
-          # - target: x86_64-pc-windows-gnu
-          #   archive: zip
-          - target: x86_64-unknown-linux-musl
-            archive: tar.gz tar.xz
-          # - target: x86_64-apple-darwin
-          #   archive: zip
+        - build: linux
+          os: ubuntu-18.04
+          rust: nightly
+          target: x86_64-unknown-linux-musl
+          archive: tar.gz
+        - build: linux-arm
+          os: ubuntu-18.04
+          rust: nightly
+          target: arm-unknown-linux-gnueabihf
+          archive: tar.gz
+        - build: macos
+          os: macos-latest
+          rust: nightly
+          target: x86_64-apple-darwin
+          archive: tar.gz
+        - build: win-msvc
+          os: windows-2019
+          rust: nightly
+          target: x86_64-pc-windows-msvc
+          archive: zip
+        - build: win-gnu
+          os: windows-2019
+          rust: nightly-x86_64-gnu
+          target: x86_64-pc-windows-gnu
+          archive: zip
+        - build: win32-msvc
+          os: windows-2019
+          rust: nightly
+          target: i686-pc-windows-msvc
+          archive: zip
     steps:
       - uses: actions/checkout@master
       - name: Compile and release
