@@ -12,6 +12,7 @@ git2 = "0.13.21"
 clap = "2.33.3"
 anyhow = "1.0.43"
 cmd_lib = "1.1.0"
+rust-ci-release-template = {git= "https://github.com/SpectralOps/rust-ci-release-template", tag="v1.0.6"}
 
 [[bin]]
 bench = false
